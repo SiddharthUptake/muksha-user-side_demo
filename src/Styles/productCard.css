@@ -1,0 +1,196 @@
+.product__item {
+    cursor: pointer;
+}
+
+.product__info h3{
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.product__info span{
+    font-size: 0.9rem;
+}
+
+.product__card-bottom span i{
+    font-size: 1.2rem;
+    padding: 5px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50px;
+}
+
+.product__name a{
+    text-decoration: none;
+    color: black;
+}
+
+@media only screen and (max-width: 992px) {
+    .product__info h3 a{
+        font-size: 1.1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .product__info h3 a{
+        font-size: 1.3rem;
+    }
+
+    .product__card-bottom span i{
+        font-size: 1rem;
+    }
+}
+
+.love-heart:before,#switch {
+    display: none;
+   }
+   
+   .love-heart, .love-heart::after {
+    border-color: hsl(231deg 28% 86%);
+    border: 1px solid;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    width: 10px;
+    height: 8px;
+    border-bottom: 0
+   }
+   
+   .round {
+    position: absolute;
+    z-index: 1;
+    width: 8px;
+    height: 8px;
+    background: hsl(0deg 0% 100%);
+    box-shadow: rgb(0 0 0 / 24%) 0px 0px 4px 0px;
+    border-radius: 100%;
+    left: 0px;
+    bottom: -1px;
+    transition: all .5s ease;
+    animation: check-animation2 .5s forwards;
+   }
+   
+   input:checked + label .round {
+    transform: translate(0px, 0px);
+    animation: check-animation .5s forwards;
+    background-color: hsl(0deg 0% 100%);
+   }
+   
+   @keyframes check-animation {
+    0% {
+     transform: translate(0px, 0px);
+    }
+   
+    50% {
+     transform: translate(0px, 7px);
+    }
+   
+    100% {
+     transform: translate(7px, 7px);
+    }
+   }
+   
+   @keyframes check-animation2 {
+    0% {
+     transform: translate(7px, 7px);
+    }
+   
+    50% {
+     transform: translate(0px, 7px);
+    }
+   
+    100% {
+     transform: translate(0px, 0px);
+    }
+   }
+   
+   .likebtn{
+    position: relative;
+    left: 70%;
+    bottom: 30%;
+   }
+
+
+.con-like {
+  --red: rgb(255, 50, 50);
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.con-like .like {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.con-like .checkmark {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.con-like .outline,
+.con-like .filled {
+  fill: var(--red);
+  position: absolute;
+}
+
+.con-like .filled {
+  animation: kfr-filled 0.5s;
+  display: none;
+}
+
+.con-like .celebrate {
+  position: absolute;
+  animation: kfr-celebrate 0.5s;
+  animation-fill-mode: forwards;
+  display: none;
+}
+
+.con-like .poly {
+  stroke: var(--red);
+  fill: var(--red);
+}
+
+.con-like .like:checked ~ .checkmark .filled {
+  display: block
+}
+
+.con-like .like:checked ~ .checkmark .celebrate {
+  display: block
+}
+
+@keyframes kfr-filled {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes kfr-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+

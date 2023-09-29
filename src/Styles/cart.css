@@ -1,0 +1,19 @@
+/* ProductCounter.css */
+
+.counterWrapper {
+    display: flex;
+    border: 1px solid black;
+    width: 100px;
+    justify-content: space-between;
+}
+
+.counterButton {
+    flex: 1;
+    height: 30px;
+}
+
+.counterValue {
+    flex: 1;
+    text-align: center;
+    line-height: 30px;
+}

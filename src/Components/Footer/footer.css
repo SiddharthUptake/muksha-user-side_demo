@@ -1,0 +1,59 @@
+.footer{
+    padding-top: 60px;
+    padding-bottom: 30px;
+    background: var(--primary-color);   
+}
+.footer__text{
+    line-height: 30px;
+    color: rgba(255, 255,255,0.735);
+}
+
+.footer__quick-links ul li{
+    background: transparent !important;
+}
+
+.footer__quick-links ul li a{
+    color: rgba(255, 255,255,0.735);
+}
+
+.footer__quick-links h4 {
+    margin-bottom: 30px;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.footer__contact li{
+    color: white;
+}
+
+.footer__contact li span {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.footer__contact li p:hover{
+    color: white ;
+}
+
+.footer-ways li a:hover{
+    color: white;
+}
+
+.footer__text:hover{
+    color: white;
+}
+
+.auth__btn {
+    background: white !important;
+    color: var(--primary-color) !important;
+    font-weight: 700;
+}
+
+.account{
+    color: lightskyblue;
+    font-weight: 400;
+}
+.account:hover{
+   font-weight: 600;
+   color: lightskyblue;
+}

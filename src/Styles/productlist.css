@@ -1,0 +1,198 @@
+.con-like {
+    --red: rgb(255, 50, 50);
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .con-like .like {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+  
+  .con-like .checkmark {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .con-like .outline,
+  .con-like .filled {
+    fill: var(--red);
+    position: absolute;
+  }
+  
+  .con-like .filled {
+    animation: kfr-filled 0.5s;
+    display: none;
+  }
+  
+  .con-like .celebrate {
+    position: absolute;
+    animation: kfr-celebrate 0.5s;
+    animation-fill-mode: forwards;
+    display: none;
+  }
+  
+  .con-like .poly {
+    stroke: var(--red);
+    fill: var(--red);
+  }
+  
+  .con-like .like:checked ~ .checkmark .filled {
+    display: block
+  }
+  
+  .con-like .like:checked ~ .checkmark .celebrate {
+    display: block
+  }
+  
+  @keyframes kfr-filled {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+  
+  @keyframes kfr-celebrate {
+    0% {
+      transform: scale(0);
+    }
+  
+    50% {
+      opacity: 0.8;
+    }
+  
+    100% {
+      transform: scale(1.2);
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  .ri-heart-fill, .ri-heart-line{
+    font-size: 30px;
+    color: palevioletred;
+  }
+
+  /* Adding some overall spacing for products */
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+
+
+
+
+
+/* Icons modifications for better visual cues */
+.action-icon {
+  transition: color 0.3s, transform 0.3s;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+
+
+
+/* Making sure the cards have a slight shadow for depth */
+/* Style for heart icons container */
+.con-like {
+  --red: rgb(255, 50, 50);
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+/* ... Other .con-like styles ... */
+
+/* Styling the heart icons */
+.ri-heart-fill, .ri-heart-line {
+  font-size: 30px;
+  color: palevioletred;
+  transition: color 0.3s;
+}
+
+.ri-heart-fill:hover, .ri-heart-line:hover {
+  color: #f48fb1;
+}
+
+/* Providing a small margin between products */
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+
+
+
+/* Icon styling to make them visually distinct on hover */
+.action-icon {
+  transition: color 0.3s, transform 0.3s;
+  margin: 0 0.5rem;
+  cursor: pointer;
+}
+
+
+
+/* Adding a subtle shadow to cards for a floating effect */
+.card {
+  transition: box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles for the overlay which appears on image hover */
+.card-image-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s;
+}
+
+/* Displaying the overlay when hovering over the card image */
+.position-relative:hover .card-image-overlay {
+  opacity: 1;
+}
+
+/* Styling the "View Product" button that appears on image hover */
+.view-product-button {
+  display: none;
+  background-color: #f8bbd0;
+  border: none;
+  transition: background-color 0.3s, transform 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.view-product-button:hover {
+  background-color: #f48fb1;
+}
+
+.position-relative:hover .view-product-button {
+  display: inline-block;
+}
+
+/* Blurring the image slightly on hover for focus on the "View Product" button */
+.position-relative:hover img {
+  filter: blur(2px);
+  cursor: pointer;
+}
