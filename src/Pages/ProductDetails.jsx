@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductById } from "../Redux-ToolKit/Slices/UserProfileSlice";
+import { fetchProductById, fetchUserProfile, toggleFavoriteProduct } from "../Redux-ToolKit/Slices/UserProfileSlice";
 import {
   fetchColorById,
   fetchSizeById,
@@ -72,7 +72,8 @@ const ProductDetails = () => {
     setModalOpen(!modalOpen);
   };
 
- const handleAddToCart = () => {
+  
+  const handleAddToCart = () => {
     if (!selectedSku) {
         setMessage("Please select a size before adding to cart.");
         toggleModal();
@@ -92,20 +93,77 @@ const ProductDetails = () => {
         });
     } else {
         const localCart = JSON.parse(localStorage.getItem("localCart")) || [];
-        
-        // Modified structure to align with ProductList's structure:
-        const productWithSku = {
-            ...product,
-            skuInventory: [selectedSku]
-        };
 
-        localCart.push(productWithSku);
+        const existingProductIndex = localCart.findIndex(
+            p => p._id === product._id && p.skuInventory[0]._id === selectedSku._id
+        );
+
+        if (existingProductIndex !== -1) {
+            localCart[existingProductIndex].item += 1;
+        } else {
+            const productWithSku = {
+                ...product,
+                skuInventory: [selectedSku],
+                item: 1
+            };
+            localCart.push(productWithSku);
+        }
+
         localStorage.setItem("localCart", JSON.stringify(localCart));
-        
         setMessage("Product added to local cart!");
         toggleModal();
     }
 };
+
+// const userFavorites = useSelector(
+//   (state) => state.userProfile.user.favouriteProduct
+// );
+
+// const isProductInFavorites = (productId, skuId) => {
+//   if (isAuthenticated) {
+//     return userFavorites.some(
+//       (item) => item.productId === productId && item.skuId === skuId
+//     );
+//   } else {
+//     const localFavorites = JSON.parse(localStorage.getItem("localFavorites")) || [];
+//     return localFavorites.some(
+//       (product) => product._id === productId && product.skuInventory[0]._id === skuId
+//     );
+//   }
+// };
+
+// const handleToggleFavorite = async () => {
+//   if (isAuthenticated) {
+//     // If authenticated, update the backend.
+//     await dispatch(
+//       toggleFavoriteProduct({
+//         productId: product._id,
+//         skuId: selectedSku._id,
+//       })
+//     );
+//     dispatch(fetchUserProfile()); // Refresh user profile to update favorites.
+//   } else {
+//     const localFavorites = JSON.parse(localStorage.getItem("localFavorites")) || [];
+//     const existsInFavorites = localFavorites.some(
+//       (product) => product._id === productId && product.skuInventory[0]._id === selectedSku._id
+//     );
+//     let updatedLocalFavorites;
+
+//     if (existsInFavorites) {
+//       updatedLocalFavorites = localFavorites.filter(
+//         (product) => !(product._id === productId && product.skuInventory[0]._id === selectedSku._id)
+//       );
+//     } else {
+//       updatedLocalFavorites = [...localFavorites, {
+//         ...product,
+//         skuInventory: [selectedSku],
+//       }];
+//     }
+
+//     localStorage.setItem("localFavorites", JSON.stringify(updatedLocalFavorites));
+//   }
+// };
+
 
 
   const getColor = (colorId) => colors.find((c) => c._id === colorId);
@@ -178,14 +236,14 @@ const ProductDetails = () => {
               </Col>
 
               <Col lg="6">
-                <Button className="mt-3">Add To Favourites</Button>
+              {/* <Button onClick={handleToggleFavorite}>
+          {isProductInFavorites(product._id, selectedSku?._id)
+            ? "Remove from Favorites"
+            : "Add to Favorites"}
+        </Button> */}
               </Col>
             </Row>
-            <Row>
-              <Col lg="12">
-                <Button>Place Order</Button>
-              </Col>
-            </Row>
+
             {/* end actions */}
             <div className="product-more-details-section">
               <h3>Additional Details</h3>

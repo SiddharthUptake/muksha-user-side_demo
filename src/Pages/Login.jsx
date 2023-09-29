@@ -7,7 +7,7 @@ import axios from "axios"; // We use axios to set up default headers after login
 import "../Styles/login.css";
 import { Form, FormGroup } from "reactstrap"; // UI components from reactstrap
 import { addProductToCart } from "../Redux-ToolKit/Slices/CartSlice"; // The Redux slice action to add products to cart
-import { toggleFavoriteProduct } from "../Redux-ToolKit/Slices/UserProfileSlice";
+import { fetchUserProfile, toggleFavoriteProduct } from "../Redux-ToolKit/Slices/UserProfileSlice";
 
 function Login() {
   // Here, we initialize hooks and state:
@@ -58,33 +58,41 @@ function Login() {
     localStorage.removeItem("localCart");
   };
   
-
-  // handleSubmit is the main event handler that is triggered when the login form is submitted:
   const handleSubmit = async (e) => {
-    e.preventDefault(); // This prevents the default form submission behavior
+    e.preventDefault();
 
-    // Dispatch the loginUser action to the Redux store. This action makes a call to the backend to authenticate the user:
     const actionResult = await dispatch(loginUser(formData));
 
-    // Check if the action was successful:
     if (loginUser.fulfilled.match(actionResult)) {
-      const localFavs =
-        JSON.parse(localStorage.getItem("localFavorites")) || [];
+      const user = await dispatch(fetchUserProfile());
+
+      console.log(user.payload.user.favouriteProduct);
+
+      let favouriteProducts = user.payload.user.favouriteProduct;
+
+      console.log(favouriteProducts);
+
+      const localFavs = JSON.parse(localStorage.getItem("localFavorites")) || [];
       for (const product of localFavs) {
-        await dispatch(
-          toggleFavoriteProduct({
-            productId: product._id,
-            skuId: product.skuInventory[0]._id,
-          })
+        const existsInFavs = favouriteProducts.some(
+          fav => fav.productId === product._id && fav.skuId === product.skuInventory[0]._id
         );
+
+        if (!existsInFavs) {
+          await dispatch(
+            toggleFavoriteProduct({
+              productId: product._id,
+              skuId: product.skuInventory[0]._id,
+            })
+          );
+        }
       }
       localStorage.removeItem("localFavorites");
-      transferLocalCartToUserCart(); // If login was successful, transfer any items in the local cart to the user's cart
-      // Set the default headers for axios. This can be useful for subsequent requests, to include the authentication token:
+      transferLocalCartToUserCart();
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${localStorage.getItem("token")}`;
-      navigate("/"); // Navigate the user to the home page after successful login
+      navigate("/");
     }
   };
 

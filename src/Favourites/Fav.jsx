@@ -76,10 +76,7 @@ const Fav = () => {
   }, [dispatch, userdetails, isAuthenticated]);
 
   // Handler for clicking on the eye icon to view product details.
-  const handleEyeClick = (product) => {
-    setSelectedProduct(product);
-    setModal(true); // Show modal.
-  };
+
 
   const navigate = useNavigate();
   const handleProductView = (productId, skuSlug) => {
@@ -150,11 +147,6 @@ const Fav = () => {
                     {product.productName} {`(${product.skuInventory[0].slug})`}
                   </CardTitle>
                   <CardSubtitle>${product.sellingPrice}</CardSubtitle>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <Button onClick={() => handleEyeClick(product)}>
-                      View
-                    </Button>
-                  </div>
                 </CardBody>
               </Card>
             </Col>

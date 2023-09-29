@@ -9,9 +9,10 @@ import Services from "../Services/Services";
 import counterImg from "../assets/images/counter-timer-img.png";
 import Clock from "../Components/UI/Clock";
 import fashion from "../assets/images/fashion5.mp4";
+import { useDispatch } from "react-redux";
 function Home() {
   const year = new Date().getFullYear();
-
+  
   return (
     <>
       <Helmet title={"Home"}>
